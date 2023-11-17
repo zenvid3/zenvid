@@ -11,18 +11,11 @@ import Authenticate from './Authenticate';
 export default function Header() {
   const {theme, setTheme} = useTheme()
 
-  const  handleToggleTheme = () => {
-    if(theme === "dark") {
-      setTheme("light")
-    }else {
-      setTheme("dark")
-    }
-  }
     
   return (
-    <div className='flex justify-between  h-[60px] items-center px-6'>
+    <div className='flex justify-between  h-[60px] items-center px-6 '>
 <Image  src={`/img/logo.jpg`}  width={150} height={150} alt='logo' 
-  className='w-9 h-9 rounded-full'
+  className='w-10 h-10 rounded-full cursor-pointer'
 />
 
   <Search    />

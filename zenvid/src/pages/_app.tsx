@@ -7,7 +7,7 @@ import "@crossbell/connect-kit/colors.css";
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from 'next-themes';
-
+import { NotificationModal } from "@crossbell/notification";
 
 import { cn } from '@/lib/utils';
 export default function App({ Component, pageProps }: AppProps) {
@@ -27,8 +27,8 @@ export default function App({ Component, pageProps }: AppProps) {
        defaultTheme='dark'
        disableTransitionOnChange
        >
-      
       <ConnectKitProvider>
+        <NotificationModal  />
     <Component {...pageProps} />
     </ConnectKitProvider>
     

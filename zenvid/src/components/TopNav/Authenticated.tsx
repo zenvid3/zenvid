@@ -8,6 +8,7 @@ import { truncateText } from '@/helpers';
 import { useAccountBalance, useOpSignSettingsModal, useAccountCharacter, useSelectCharactersModal } from '@crossbell/connect-kit';
 import { ConnectButton } from '@crossbell/connect-kit';
 import  {useTheme} from 'next-themes'
+import { useShowNotificationModal } from "@crossbell/notification";
 interface authentictedProps {
     address : string 
      handle : string
@@ -17,12 +18,12 @@ export default function Authenticated({address, handle, profile}: authentictedPr
     const { balance, isLoading } = useAccountBalance();
     const character = useAccountCharacter();
    const  {theme, setTheme} = useTheme()
-   const { isActive, show, hide } = useOpSignSettingsModal();
+   const { isActive, show: showOpSignModal, hide } = useOpSignSettingsModal();
    const { isActive : isCharcaterModalActive, show: showCharacterModal, hide: hideCharacterModal } = useSelectCharactersModal();
-
+const show = useShowNotificationModal()
     const handleShowOpModal = () => {
       if(character) {
-        show(character)
+        showOpSignModal(character)
       }
     }
 
@@ -35,16 +36,31 @@ export default function Authenticated({address, handle, profile}: authentictedPr
     }
   }
   return (
+    <div className='flex gap-3 items-center'>
+      
+      <div className='flex items-center gap-4'>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer xs:hidden md:block" onClick={show}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+</svg>
+
+ <div className='flex gap-2 bg-black text-white dark:bg-white dark:text-black items-center py-1.5 rounded-xl cursor-pointer px-3 xs:hidden md:flex'>
+ <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+</svg>
+<p>Upload</p>
+ </div>
+
+      </div>
    <Popover>
       <PopoverTrigger>
            <div className='flex items-center gap-2'>
            <CharacterAvatar size={35} character={profile} />
-            <div>
+            <div className='xs:hidden md:block'>
                  <h1 className=' capitalize text-sm leading-none font-semibold'>{handle}</h1>
                  <h2 className='text-xs'>@{handle}</h2>
             </div>
           
-           <ChevronDownOutline className='w-3.5 h-3.5'   />
+           <ChevronDownOutline className='w-3.5 h-3.5 xs:hidden md:block'   />
            </div>
       </PopoverTrigger>
        <PopoverContent className=''>
@@ -120,5 +136,6 @@ export default function Authenticated({address, handle, profile}: authentictedPr
         </div>
        </PopoverContent>
    </Popover>
+   </div>
   )
 }

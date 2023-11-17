@@ -1,6 +1,5 @@
 
 
-
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -13,6 +12,8 @@ module.exports = {
     container: {
       center: true,
       padding: "2rem",
+    },
+    extend: {
       screens: {
         xs: "250px",
         // => @media (min-width: 250px) { ... }
@@ -31,9 +32,6 @@ module.exports = {
         "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
       },
-    },
-    extend: {
-     
       colors: {
         warning: "hsl(var(--warning))",
         "warning-foreground": "hsl(var(--warning-foreground))",

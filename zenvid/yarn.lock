@@ -176,6 +176,22 @@
   resolved "https://registry.yarnpkg.com/@crossbell/ipfs-fetch/-/ipfs-fetch-0.0.19.tgz#70b738495c2fbca11576e87f370629cf7c4534c2"
   integrity sha512-0Yf9+MMTSD+JJkFbNaK/s+kl3CXhr4oq2yj3K0dvheB+e8uykcpM7yomxHie/sr0ushw3G7Ppf5NXYkfH0eiSw==
 
+"@crossbell/notification@^1.5.17":
+  version "1.5.17"
+  resolved "https://registry.yarnpkg.com/@crossbell/notification/-/notification-1.5.17.tgz#c1a536268fb4ccc0b3d082a382d9f412de4c19a0"
+  integrity sha512-XuoT3lBQC2vKDd6j0KfoimzXFATV6lAwHq/wmcdHdxvKFd2i9kdxH8vO0xzj0hlnq6Ki+Rrhd5+qx2gv+QFwoQ==
+  dependencies:
+    "@crossbell/indexer" "^1.5.17"
+    "@crossbell/react-account" "^1.5.17"
+    "@crossbell/ui" "^1.5.17"
+    "@crossbell/util-hooks" "^1.5.17"
+    "@crossbell/util-metadata" "^1.5.17"
+    classnames "^2"
+    dayjs "^1.11.10"
+    react-intersection-observer "^9"
+    viem "^1.18.2"
+    zustand "^4.4.1"
+
 "@crossbell/react-account@^1.5.17":
   version "1.5.17"
   resolved "https://registry.yarnpkg.com/@crossbell/react-account/-/react-account-1.5.17.tgz#b3a8877892742c67e9d1b71f8f1594331c8d2f91"
@@ -5210,7 +5226,7 @@ react-google-recaptcha@^3.1.0:
     prop-types "^15.5.0"
     react-async-script "^1.2.0"
 
-react-intersection-observer@^9.5.2:
+react-intersection-observer@^9, react-intersection-observer@^9.5.2:
   version "9.5.3"
   resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-9.5.3.tgz#f47a31ed3a0359cbbfdb91a53d7470ac2ab7b3c7"
   integrity sha512-NJzagSdUPS5rPhaLsHXYeJbsvdpbJwL6yCHtMk91hc0ufQ2BnXis+0QQ9NBh6n9n+Q3OyjR6OQLShYbaNBkThQ==
@@ -6378,7 +6394,7 @@ zen-observable@0.8.15:
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
 
-zustand@^4, zustand@^4.3.1:
+zustand@^4, zustand@^4.3.1, zustand@^4.4.1:
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.4.6.tgz#03c78e3e2686c47095c93714c0c600b72a6512bd"
   integrity sha512-Rb16eW55gqL4W2XZpJh0fnrATxYEG3Apl2gfHTyDSE965x/zxslTikpNch0JgNjJA9zK6gEFW8Fl6d1rTZaqgg==
