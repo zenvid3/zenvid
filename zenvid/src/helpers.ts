@@ -1,3 +1,5 @@
+import { IpfsGateway, isIpfsUrl } from "@crossbell/ipfs-gateway";
+
 export const  truncateText =(inputText : string | undefined, maxLength : number) => {
     //@ts-ignore
       if (inputText?.length <= maxLength) {
@@ -10,3 +12,12 @@ export const  truncateText =(inputText : string | undefined, maxLength : number)
         return `${firstFourDigits}...${lastFourDigits}`;
       }
     }
+
+   
+
+export const ipfsGateway = new IpfsGateway();
+
+export const ipfsLinkToHttpLink = (link: string) => {
+  isIpfsUrl(link) ? ipfsGateway.getSwWeb2Url(link) : link;
+}
+ 

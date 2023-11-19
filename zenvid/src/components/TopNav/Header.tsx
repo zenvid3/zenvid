@@ -8,15 +8,19 @@ import Image from 'next/image';
 import Search from './Search';
 import Authenticated from './Authenticated';
 import Authenticate from './Authenticate';
+import Link from 'next/link';
 export default function Header() {
   const {theme, setTheme} = useTheme()
 
     
   return (
-    <div className='flex justify-between  h-[60px] items-center px-6 '>
-<Image  src={`/img/logo.jpg`}  width={150} height={150} alt='logo' 
+    <div className='flex justify-between  h-[60px] items-center px-6 dark:bg-black/75 sticky top-0 bg-white/80 '>
+		<Link href={`/`}>
+		<Image  src={`/img/logo.jpg`}  width={150} height={150} alt='logo' 
   className='w-10 h-10 rounded-full cursor-pointer'
 />
+		</Link>
+
 
   <Search    />
 <ConnectButton>

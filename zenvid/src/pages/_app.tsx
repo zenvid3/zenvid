@@ -10,6 +10,7 @@ import { ThemeProvider } from 'next-themes';
 import { NotificationModal } from "@crossbell/notification";
 
 import { cn } from '@/lib/utils';
+import Layout from '@/components/Layout';
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
@@ -24,12 +25,17 @@ export default function App({ Component, pageProps }: AppProps) {
     <WagmiConfig config={wagmiConfig}>
       <ThemeProvider
        attribute='class'
-       defaultTheme='dark'
+       defaultTheme='system'
        disableTransitionOnChange
+       enableSystem
+       
        >
+       
       <ConnectKitProvider>
+      <Layout>
         <NotificationModal  />
     <Component {...pageProps} />
+    </Layout>
     </ConnectKitProvider>
     
     </ThemeProvider>
