@@ -8,7 +8,7 @@ import { HomePage } from '@/components/Home'
 export default function Home() {
   return (
     <main
-     className='bg-gray-800 min-h-screen w-full'
+     className='min-h-screen w-full'
     >
     <HomePage   />
       </main>
