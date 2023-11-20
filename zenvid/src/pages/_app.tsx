@@ -24,11 +24,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
     <WagmiConfig config={wagmiConfig}>
       <ThemeProvider
-       attribute='class'
-       defaultTheme='system'
-       disableTransitionOnChange
-       enableSystem
-       
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
        >
        
       <ConnectKitProvider>

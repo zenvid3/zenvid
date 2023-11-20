@@ -15,9 +15,3 @@ export const  truncateText =(inputText : string | undefined, maxLength : number)
 
    
 
-export const ipfsGateway = new IpfsGateway();
-
-export const ipfsLinkToHttpLink = (link: string) => {
-  isIpfsUrl(link) ? ipfsGateway.getSwWeb2Url(link) : link;
-}
- 
