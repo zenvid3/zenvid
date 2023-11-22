@@ -9,7 +9,7 @@ import React, {useState} from 'react'
  }
 export default function Sidebar({isShowFull} : sidebarprops) {
   return (
-    <div className={`${! isShowFull && "xs:hidden md:block"}  md:w-24   bg-inherit`}>
+    <div className={`${! isShowFull && "xs:hidden md:block"}  md:w-24   bg-inherit z-10 `}>
     <div className={`${isShowFull && "w-screen h-screen bg-black/30 fixed top-[60px]"}`}>
         <div className={`${isShowFull ? "w-52 bg-white dark:bg-black p-2" : "items-center"} h-screen fixed to-[60px] flex flex-col  bg-inherit`}>
           {sidebarNav.map((item, i) => (

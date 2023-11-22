@@ -19,7 +19,7 @@ export default function Header({isShowFull, toggleSidebar} : headerprops) {
 
     
   return (
-    <div className='flex justify-between  h-[60px] items-center px-6 dark:bg-black sticky top-0 bg-white/90 '>
+    <div className='flex justify-between  h-[60px] items-center px-6 dark:bg-black sticky top-0 bg-white/90 z-10 '>
 		 <div className='flex gap-3 items-center'>
 			<div className='dark:bg-gray-800/90 cursor-pointer hover:bg-gray-700/20 w-9 h-9 rounded-full flex items-center justify-center' onClick={toggleSidebar}>
               {!isShowFull ? (
