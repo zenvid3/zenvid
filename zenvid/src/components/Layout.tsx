@@ -10,6 +10,8 @@ import {
 } from "@livepeer/react";
 import { LIVEPEER_KEY } from '@/assets/constant';
 import { Sidebar } from '@/sidebar';
+import { ApolloProvider } from '@apollo/client';
+import { apolloClient } from '@/graphql/apolloClient';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,12 +22,15 @@ type layoutProps = {
    // LIVEPEER THEME
    const livepeerTheme: ThemeConfig = {
     colors: {
-      accent: "#3730a3",
+      accent: "#f43f5e",
       containerBorderColor: "#3730a3",
     },
     fonts: {
       display: "Inter",
     },
+    radii : {
+      containerBorderRadius : "16px"
+    }
   };
   //LIVEPEER_CONFIGURATIONS
   const client = createReactClient({
@@ -39,7 +44,8 @@ export default function Layout({children}: layoutProps) {
     }
   return (
     <html lang="en">
-      <LivepeerConfig client={client}>
+      <LivepeerConfig client={client} theme={livepeerTheme} >
+        <ApolloProvider client={apolloClient}>
     <body  className={` ${inter.className} `}>
     <Header isShowFull={isShowFull} toggleSidebar={toggleShowModal} />
     <div className='flex '>
@@ -49,7 +55,9 @@ export default function Layout({children}: layoutProps) {
       </div>
       </div>
     </body>
+    </ApolloProvider>
     </LivepeerConfig>
+
   </html>
   )
 }

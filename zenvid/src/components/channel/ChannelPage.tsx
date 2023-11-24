@@ -6,13 +6,24 @@ export default function ChannelPage() {
     <div className='min-h-screen'>
         <ChannelBanner  />
         <div>
-        <Tabs defaultValue="account" className="w-[400px]">
+        <Tabs defaultValue="content" className="  mt-10 py-2 pl-3 ">
   <TabsList>
-    <TabsTrigger value="account">Account</TabsTrigger>
-    <TabsTrigger value="password">Password</TabsTrigger>
+    <TabsTrigger value="content">Content</TabsTrigger>
+    <TabsTrigger value="badges">Badges</TabsTrigger>
+    <TabsTrigger value="about">About</TabsTrigger>
   </TabsList>
-  <TabsContent value="account">Make changes to your account here.</TabsContent>
-  <TabsContent value="password">Change your password here.</TabsContent>
+  <TabsContent value="content">
+    <div className='w-full bg-red-500'>
+    Make changes to your account here.
+    </div>
+ 
+    </TabsContent>
+  <TabsContent value="badges">
+    Change your badges here.
+    </TabsContent>
+    <TabsContent value="about">
+    Change your info here.
+    </TabsContent>
 </Tabs>
 
         </div>

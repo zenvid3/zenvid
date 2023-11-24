@@ -3,7 +3,7 @@ import React from 'react'
 export default function ChannelBanner() {
   return (
     <div className='relative z-0'>
-    <div className={`h-72 md:h-80 bg-[url('/img/star.svg')]  border border-red-600   `}>
+    <div className={`h-72 md:h-80 bg-[url('/img/star.svg')]    `}>
         <div className='flex xs:flex-col md:flex-row justify-end py-2 px-4 gap-3  items-end z-50'>
              <div className='inline-flex max-w-[130px]  gap-2 items-center bg-gray-300 hover:bg-gray-300/70 dark:bg-zinc-800 py-2 px-4 cursor-pointer hover:dark:bg-zinc-700 rounded-xl '>
              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

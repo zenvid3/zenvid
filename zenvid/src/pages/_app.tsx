@@ -8,7 +8,7 @@ import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from 'next-themes';
 import { NotificationModal } from "@crossbell/notification";
-
+import NextNProgress from 'nextjs-progressbar';
 import { cn } from '@/lib/utils';
 import Layout from '@/components/Layout';
 export default function App({ Component, pageProps }: AppProps) {
@@ -33,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ConnectKitProvider>
       <Layout>
         <NotificationModal  />
+        <NextNProgress color="#29D" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow={true} />
     <Component {...pageProps} />
     </Layout>
     </ConnectKitProvider>
