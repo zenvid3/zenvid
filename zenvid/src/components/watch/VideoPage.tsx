@@ -6,7 +6,9 @@ import Image from 'next/image'
 import React from 'react'
 import RelatedVideos from '../relatedVids/RelatedVideos'
 import FullVideoStats from './FullVideoStats'
-
+import { useNoteLikeCount, useIsNoteLiked,  } from '@crossbell/connect-kit'
+import ChannelInfo from './ChannelInfo'
+import Comments from './Comments'
 
 type videoPageProps = {
    videoUri? : any
@@ -27,9 +29,20 @@ export default function VideoPage({
      videoId, videoTitle, 
      videoUri,channelId, channelInfo, 
      totalTips,
-     loading
+     loading, createdAt
     } : videoPageProps) {
+
+      const [{isLiked}] = useIsNoteLiked({
+        noteId : videoId,
+        characterId : channelId
+      })
+
+      const {data : likeCount} = useNoteLikeCount({
+        noteId : videoId,
+        characterId : channelId
+      })
     
+        console.log("likes count", likeCount)
         const PosterImage = () => {
             return (
               <Image
@@ -37,9 +50,7 @@ export default function VideoPage({
                 layout="fill"
                 objectFit="cover"
                 priority
-              
                
-                
                 alt='cover'
               />
             );
@@ -60,11 +71,24 @@ export default function VideoPage({
       
     /> 
     <div className='mt-4'>
-        <h1 className=' text-xl'>This is the title ofthe video</h1>
+        <h1 className=' text-2xl'>{videoTitle}</h1>
 
          <div>
-        <FullVideoStats      />
+        <FullVideoStats 
+          stats={vidStats}
+          tips={totalTips}
+          videId={videoId}
+          createdAt={createdAt}
+          likes={likeCount}
+          isLiked={isLiked}
+        />
          </div>
+         <div>
+          <ChannelInfo  channel={channelInfo} />
+         </div>
+          <div>
+             <Comments   />
+          </div>
     </div>
     </div>
     <RelatedVideos   />

@@ -46,6 +46,7 @@ export default function VideoId({post} : any) {
           createdAt={activeVideo?.publishedAt }
           channelId={activeVideo?.noteId}
           vidStats={activeVideo?.stat} 
+          channelInfo={activeVideo.character}
         />
     </div>
   )
