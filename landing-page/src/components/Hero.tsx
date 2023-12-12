@@ -33,7 +33,7 @@ export default function Hero() {
         </h1>
         </div>
         <div className='mt-5 px-4'>
-             <Image
+             <img
     src={`/img/zenvid.png`}
   width={1200}
   height={800}
