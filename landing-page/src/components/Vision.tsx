@@ -16,8 +16,8 @@ export default function Vision() {
         y : 100
       }}
     >
-         <h1 className='text-5xl font-extrabold my-9'>IMAGINE A PLACE...</h1>
-          <h3 className='text-center xs:text-xl md:text-3xl'>
+         <h1 className='text-5xl font-extrabold my-9 text-gray-200/90'>IMAGINE A PLACE...</h1>
+          <h3 className='text-center xs:text-xl md:text-3xl text-gray-200'>
           .....where you own your content, your data, and your connections  < br />
           Turn your videos into NFT treasures that you control <br />
            and can profit from. 
