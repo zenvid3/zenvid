@@ -5,6 +5,7 @@ import {RiTwitterXLine, RiDiscordLine} from 'react-icons/ri'
 Image
 import logo from '../../public/logo.jpg'
 import Image from 'next/image'
+import { openLinkInNewTab } from '@/utls/openExternalLink'
 export default function TopNavbar() {
   return (
     <div className='border-b bg-black/90 z-20 border-gray-900 flex justify-between items-center py-5 px-3 h-[60px] sticky top-0 max-w-6xl  mx-auto'>
@@ -23,15 +24,11 @@ export default function TopNavbar() {
       
          
           <div className='flex items-center gap-3'>
-            <div className='cursor-pointer  w-[30px] h-[30px] flex items-center justify-center rounded-full ring-rose-400 hover:ring-1'>
+            <div className='cursor-pointer  w-[30px] h-[30px] flex items-center justify-center rounded-full ring-rose-400 hover:ring-1' onClick={() => openLinkInNewTab("https://twitter.com/zenvid")}>
             <RiTwitterXLine style={{width : "20px", height : "20px "}} />
             </div>
-        
-          <div className='cursor-pointer  w-[30px] h-[30px] flex items-center justify-center rounded-full ring-rose-400 hover:ring-1'>
-          <RiDiscordLine style={{width : "23px", height : "23px"}} />
-          </div>
             
-             <div className='cursor-pointer  w-[30px] h-[30px] flex items-center justify-center rounded-full ring-rose-400 hover:ring-1'>
+             <div className='cursor-pointer  w-[30px] h-[30px] flex items-center justify-center rounded-full ring-rose-400 hover:ring-1' onClick={() => openLinkInNewTab("https://t.me/+C_CIgQJKufM3NDFk")}>
              <PiTelegramLogo style={{width : "20px", height : "20px"}} />
              </div>
              
