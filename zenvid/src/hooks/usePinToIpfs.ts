@@ -1,4 +1,5 @@
 
+//@ts-nocheck
 import { create } from "ipfs-http-client";
 import { useState } from "react";
 import { Buffer } from "buffer";

@@ -1,13 +1,14 @@
 
 
 //@ts-nocheck
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { Contract } from "crossbell";
 import {
   generateVideoThumbnailViaUrl,
   generateVideoThumbnails,
   importFileandPreview,
 } from "@rajesh896/video-thumbnails-generator";
+import { toast, useToast } from "../ui/use-toast";
 //const contract = new Contract(window.ethereum)
 import { LIVEPEER_KEY } from "@/assets/constant";
 import { usePostVideo } from "@/hooks/usePostVideo";
@@ -17,15 +18,21 @@ import { useCreateAsset } from "@livepeer/react";
 import { useContract } from "@crossbell/contract";
 import { useAccountCharacter } from "@crossbell/connect-kit";
 import { ClipLoader } from "react-spinners";
-import { ThumbnailsLoadingSpinner } from "../spinners";
+import { ThumbnailsLoadingSpinner } from "../skeletons";
 import { Progress } from "@radix-ui/react-progress";
 import { ipfsLinkToHttpLink } from "@/helpers";
-
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+import { Switch } from "../ui/switch";
+import Button from "../common/Button";
+import { APP_ID, SHORT_APP_ID } from "@/assets/constant";
 console.log(" ", LIVEPEER_KEY);
 export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
   const [videoTitle, setvideoTitle] = useState("");
+  const [vidDuration, setvidDuration] = useState()
   const [caption, setcaption] = useState("");
   const [videoTags, setVideoTags] = useState([]);
+  const [isShortClip, setisShortClip] = useState(false)
   const [videoTag, setvideoTag] = useState("");
   const [isSenstive, setisSensitive] = useState("no");
   const [videoThumnail, setvideoThumnail] = useState();
@@ -42,9 +49,14 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
   const [coverCID, setcoverCID] = useState();
   const { uploadToIpfs, isUploading, isUploadingError } = usePinToIpfs();
   const character = useAccountCharacter();
-
+  const { width, height } = useWindowSize()
+const [testTruth, settestTruth] = useState(true)
   const postNote = usePostNote();
 
+
+    const toggleTruthTest = () => {
+      settrueTest(! trueTest)
+    }
   // const {postVideo} = usePostVideo()
   const selectThumbnailRef = useRef(null);
   // console.log("thumbnails ", videoThumbnails)
@@ -143,6 +155,40 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
     }
   }, [videoFile]);
 
+  console.log('is short clip', isShortClip)
+  /*
+=========================
+CHECK VIDEO  DURATION
+============================
+
+  */
+  
+  const getVideoDuration = (file: any) => {
+    return new Promise((resolve) => {
+      const video = document.createElement('video')
+      video.preload = 'metadata'
+      video.onloadedmetadata = () => {
+        resolve(video.duration)
+      }
+
+      const objectUrl = URL.createObjectURL(file)
+      video.src = objectUrl
+    })
+  }
+
+  const getTheVideoDuration = async () => {
+    if (videoFile) {
+      const videoDuration = await getVideoDuration(videoFile)
+      setvidDuration(videoDuration)
+    }
+  }
+
+  console.log('the video duration here', vidDuration)
+
+  useEffect(() => {
+    getTheVideoDuration()
+  }, [videoFile])
+
   /*
      ===========================================
       END OF  GENERATE VIDEO  THUMBNAILS
@@ -204,6 +250,21 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
         }
       : null
   );
+
+  const progressFormatted = useMemo(
+    () =>
+      progress?.[0].phase === 'failed'
+        ? 'Failed to process video.'
+        : progress?.[0].phase === 'waiting'
+        ? 'Waiting'
+        : progress?.[0].phase === 'uploading'
+        ? `Uploading: ${Math.round(progress?.[0]?.progress * 100)}%`
+        : progress?.[0].phase === 'processing'
+        ? `Processing: ${Math.round(progress?.[0].progress * 100)}%`
+        : null,
+    [progress]
+  )
+
   console.log("the progress of video", progress);
   console.log("the assets itsell", assets);
   console.log("the error when posting", error);
@@ -259,7 +320,7 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
       title: videoTitle,
       content: caption,
       tags: videoTags,
-      sources: ["xTube_v1"],
+      sources: isShortClip ? [SHORT_APP_ID] : [APP_ID],
       attachments: [
         {
           name: coverCID,
@@ -277,7 +338,10 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
       TODO
        Direct  the  creator to  video  page
       ====================*/
-
+      toast({
+        title : "video uploaded",
+        description : "video uploaded succefully "
+      })
 
       
     } catch (error) {
@@ -285,6 +349,11 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
       TODO
       TOASTIFY THE ERROR
       ====================*/
+      console.log("something went wrong while uploading the video ", error)
+      toast({
+        title : "someting went wrong",
+        description : "something went wrong while uploading video"
+      })
     }
   };
 
@@ -322,14 +391,20 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
      */
 
   return (
-    <div className="  flex  xs:flex-col md:flex-row gap-3 items-center justify-center">
-
+    <div className="  flex  xs:flex-col md:flex-row gap-3 items-center justify-center relative">
+      { isShortClip && vidDuration > 180 && (
+          <div className='absolute top-2'>
+            <h3 className='  text-center font-semibold text-red-600 md:text-xl'>
+              Video is too long. Please choose a video shorter than 3 minutes.
+            </h3>
+          </div>
+        )}
 <div className="flex-1  h-full  px-3">
-        <div className="z-0">
+        <div className="z-0  ">
           <video
             width={500}
             controls
-            className="rounded-xl"
+            className={`rounded-xl ${isShortClip && "w-[400px]"} max-w-[450px] max-h-[450px] `}
             poster={selectedThumbnail}
           >
             <source src={URL.createObjectURL(videoFile)} />
@@ -403,9 +478,16 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
 
       </div>
         
-      <div className="flex-1 h-full px-4 py-2">
+      <div className="flex-1 h-full px-4 py-2 mb-7 md:mb-0">
         <div className="flex flex-col gap-2 mb-3">
           <h1 className="opacity-75 text-sm">TITLE</h1>
+          {isNotCreated && (
+                <Confetti
+                width={width}
+                height={height}
+              />
+          )}
+      
           <input
             value={videoTitle}
             onChange={(e) => setvideoTitle(e.target.value)}
@@ -476,21 +558,66 @@ export default function VideoMetadata({ videoFile , setVideoFile  }: any) {
               No
             </label>
           </div>
-        </div>
-
-         
-        <div className="flex gap-4 justify-end my-4 text-sm">
         
-          <button onClick={handleReset}>Reset</button>
+        </div>
+        <div className="flex flex-col gap-3 my-5">
+         
+         <h1 className="opacity-90">
+          is short video ?
+         </h1>
+         <div className="flex gap-4">
+           <label className="flex items-center gap-2 cursor-pointer">
+             <input
+               type="radio"
+               name="isShortClip"
+               value={false}
+               checked={isShortClip === true}
+               className="bg-inherit"
+               onChange={() => setisShortClip(!isShortClip)}
+             />
+             Yes
+           </label>
+           <label className="flex items-center gap-2 cursor-pointer">
+             <input
+               type="radio"
+               name="isShortClip"
+               value={false}
+               className="bg-inherit"
+               checked={isShortClip === false}
+               onChange={() => setisShortClip(! isShortClip)}
+             />
+             No
+           </label>
+         </div>
+       
+       </div>
+         
+        <div className="flex gap-4  my-4 text-sm w-full  px-3 justify-between border-t dark:border-border-gray py-3">
+        
+          <Button onClick={handleReset}
+            variant={`transparent`}
+          >Reset</Button>
+          {/*}
           <div
             className="bg-black rounded-xl text-white dark:bg-white dark:text-black font-semibold px-4 py-1.5 xl:py-2  flex items-center gap-2 cursor-pointer"
             onClick={postVideo}
           >
-            <ClipLoader size={15} loading={isLoading || isCreatingNote} />
+            <ClipLoader size={15} loading={isLoading || isCreatingNote} className="text-white dark:text-black"
+             color="#e11d48"
+            />
             <button className=" font-semibold   rounded-lg">
               {getCurrentUploadingState()}
             </button>
           </div>
+            */}
+           <Button className="w-3/4"
+            disabled={isShortClip && vidDuration > 180 || isLoading || isCreatingNote}
+            isLoading={isLoading || isCreatingNote}
+            loadingText={isLoading ? progressFormatted : "Posting video"}
+            onClick={() => postVideo()}
+           >
+            {isLoading ? progressFormatted :  "Post video"}
+           </Button>
         </div>
       </div>
     

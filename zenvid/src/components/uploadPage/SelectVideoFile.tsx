@@ -10,7 +10,7 @@ export default function SelectVideoFile({ handleSelectFile }) {
   };
   return (
     <div className=" h-[80vh] flex items-center justify-center">
-      <div className="w-[650px] h-[400px] border border-dashed border-gray-400 dark:border-gray-700 rounded-xl flex items-center justify-center gap-4 flex-col ">
+      <div className=" w-full lg:w-[650px] lg:h-[400px] lg:border border-dashed border-gray-400 dark:border-gray-700 rounded-xl flex items-center justify-center gap-4 flex-col ">
         <input
           type="file"
           id="fileInput"

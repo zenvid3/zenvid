@@ -13,12 +13,12 @@ query _count($where: NoteWhereInput) {
       fromAddress
       owner
       primary
-    
+      metadata{
+        content
+      }
       socialToken
       createdAt
-      _count {
-        achievements
-      }
+      
     }
     characterId
     contractAddress

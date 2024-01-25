@@ -14,43 +14,39 @@ type videoCardProps = {
   noteId ? : any
   createdAt? : any
  }
+ //w-full h-full object-cover rounded-xl hover:animate-scaleSlow
 export default function RelatedVideoCrad({video, title, cover, channel, channelId,noteId, createdAt} : videoCardProps) {
 
   const [currentTime, setCurrentTime] = useState(new Date());
   const currentDate = new Date();
   const videoCreatedAt = new Date(createdAt);
+  //@ts-ignore
   const diffInMilliseconds = currentDate - videoCreatedAt;
   const diffInHours = diffInMilliseconds / (60 * 60 * 1000);
   const duration = moment.duration(diffInHours, "hours");
   return (
-   <div className='w-full'>
-        <div  className='flex  gap-2 '>
+  
+        <div  className='flex  justify-between gap-2 '>
           <div
-          className='w-44 h-24 600  overflow-hidden hover:border-rose-400 rounded-xl '
+          className='w-44 h-24   overflow-hidden  rounded-xl '
           >
             <Link href={`${channelId}-${noteId}`}>
-            <motion.div
+            <div
               className='w-full h-full'
-              whileHover={{
-                scale : 1.09,
-                transition : {
-                    duration : 0.5
-                }
-             }}
-            >
-             <img
+          >
+             <Image
              src={`${IPFS_GATEWAY2}${cover}`}
            width={300}
            height={300}
             alt='cover'
-            className='w-full h-full object-cover rounded-xl'
+            className='h-24 w-44 bg-gray-300 object-center dark:bg-gray-700'
 />
-</motion.div>
+</div>
 </Link>
           </div>
-            <div className='flex-1 w-44 '>
-              <Link href={`${channelId}-${noteId}`}>
-              <h1 className='line-clamp-2  mb-3 font-light text-sm '>{title}</h1>
+            <div className='flex-1 w-44 px-0.5 '>
+              <Link href={`${channelId}-${noteId}`} className='line-clamp-2  mb-3 text-text  '>
+              {title  || `Video By ${video?.character?.handle}`}
               </Link>
               <Link href={`/c/${channelId}`}>
               <h2 className='text-xs line-clamp-1'>{channel?.handle}</h2></Link>
@@ -58,6 +54,6 @@ export default function RelatedVideoCrad({video, title, cover, channel, channelI
             </div>
        
         </div>
-    </div>
+    
   )
 }

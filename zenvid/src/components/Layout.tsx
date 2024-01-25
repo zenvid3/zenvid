@@ -12,6 +12,7 @@ import { LIVEPEER_KEY } from '@/assets/constant';
 import { Sidebar } from '@/sidebar';
 import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from '@/graphql/apolloClient';
+import BottomNav from './TopNav/BottomNav';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,14 +23,14 @@ type layoutProps = {
    // LIVEPEER THEME
    const livepeerTheme: ThemeConfig = {
     colors: {
-      accent: "#f43f5e",
-      containerBorderColor: "#3730a3",
+      accent: "#4f46e5",
+      containerBorderColor: "#6366f1",
     },
     fonts: {
       display: "Inter",
     },
     radii : {
-      containerBorderRadius : "16px"
+      containerBorderRadius : "10px"
     }
   };
   //LIVEPEER_CONFIGURATIONS
@@ -48,10 +49,11 @@ export default function Layout({children}: layoutProps) {
         <ApolloProvider client={apolloClient}>
     <body  className={` ${inter.className} `}>
     <Header isShowFull={isShowFull} toggleSidebar={toggleShowModal} />
-    <div className='flex '>
+    <div className='flex gap-1 '>
        <Sidebar isShowFull={isShowFull} toggleSidebar={toggleShowModal} />
-       <div className='w-full'>
+       <div className='w-full min-h-screen  md:max-w-[96%] sm:px-2 md:pl-5 lg:px-0.5 '>
       {children}
+      <BottomNav  />
       </div>
       </div>
     </body>

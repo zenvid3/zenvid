@@ -3,13 +3,18 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { CharacterAvatar } from "@crossbell/ui";
 import ChevronDownOutline from '../common/Icons/ChevronDown';
 import ProfileManagerOutline from '../common/Icons/ProfileManager';
-import { User } from '../common/Icons';
+import { ShortsOutline, User } from '../common/Icons';
 import { truncateText } from '@/helpers';
 import { useAccountBalance, useOpSignSettingsModal, useAccountCharacter, useSelectCharactersModal } from '@crossbell/connect-kit';
 import { ConnectButton } from '@crossbell/connect-kit';
 import  {useTheme} from 'next-themes'
 import { useShowNotificationModal } from "@crossbell/notification";
 import Link from 'next/link';
+import Button from '../common/Button';
+import { MdOutlineVideoCall } from "react-icons/md";
+import { HiOutlineVideoCamera } from "react-icons/hi";
+import { installApp, isInstallAvailable} from '@/lib/install'
+import SearchVids from './Search';
 interface authentictedProps {
     address : string 
      handle : string
@@ -37,9 +42,9 @@ const show = useShowNotificationModal()
     }
   }
   return (
-    <div className='flex gap-3 items-center'>
+    <div className='flex gap-3 items-center '>
       
-      <div className='flex items-center gap-4'>
+     {/*} <div className='flex items-center gap-4'>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer xs:hidden md:block" onClick={show}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
 </svg>
@@ -51,15 +56,30 @@ const show = useShowNotificationModal()
 </svg>
 <p>Upload</p>
  </div>
- </Link>
-      </div>
+  </Link>
+  </div> */}
+
+   
+
+    
+  <Button
+      variant={`transparent`}
+      size={`circle`}
+      className=' text-text-muted dark:text-text hidden md:block '
+      href='/upload'
+     >
+     <MdOutlineVideoCall  className='w-6 h-6' />
+     </Button>
+
+ 
+
    <Popover>
       <PopoverTrigger>
-           <div className='flex items-center gap-2'>
-           <CharacterAvatar size={35} character={profile} />
+           <div className='flex items-center gap-2   rounded-lg'>
+           <CharacterAvatar size={25} character={profile} />
             <div className='xs:hidden md:block'>
-                 <h1 className=' capitalize text-sm leading-none font-semibold'>{handle}</h1>
-                 <h2 className='text-xs'>@{handle}</h2>
+                 <h1 className=' capitalize text-sm leading-none font-semibold hidden md:block'>{handle}</h1>
+                 {/*<h2 className='text-xs text-text-muted dark:text-text'>@{handle}</h2>*/}
             </div>
           
            <ChevronDownOutline className='w-3.5 h-3.5 xs:hidden md:block'   />
@@ -67,6 +87,7 @@ const show = useShowNotificationModal()
       </PopoverTrigger>
        <PopoverContent className=''>
         <div>
+          <Link href={`/c/${character?.characterId}`}>
             <div className='flex gap-2 items-center cursor-pointer my-3'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -74,7 +95,7 @@ const show = useShowNotificationModal()
 
 <p className='font-semibold text-sm '>My channel</p>
             </div>
-
+            </Link>
             <div className='flex gap-2 items-center cursor-pointer my-3'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
@@ -122,6 +143,14 @@ const show = useShowNotificationModal()
 <p className='font-semibold text-sm'>{theme === "dark" ? "Switch to Light" : "Switch to Dark"}</p>
 </div>
 
+{/*isInstallAvailable() && <div className='flex gap-2 items-center cursor-pointer mt-4' onClick={() => installApp()}> 
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+</svg>
+
+<p  className='font-semibold text-sm'>Install App</p>
+  
+    </div>*/}
 <div className='flex gap-2 items-center cursor-pointer mt-4'>
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
