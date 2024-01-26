@@ -20,8 +20,8 @@ export default function Header({isShowFull, toggleSidebar} : headerprops) {
 
     
   return (
-    <div className='flex justify-between h-[50px] md:h-[60px] items-center px-2 md:px-4 dark:bg-background-light sticky top-0 bg-sky-100 z-10'>
-		 <div className=' gap-2 items-center flex  '>
+    <div className='flex justify-between h-[50px] md:h-[60px] items-center px-2 md:px-4 dark:bg-background-light sticky top-0 bg-sky-100 z-10 mx-auto   '>
+		 <div className=' gap-2 items-center flex '>
 			<div className='dark:bg-gray-800/90 cursor-pointer hidden md:flex hover:bg-gray-400/40 bg-gray-300/60 w-9 h-9 rounded-full  items-center justify-center' onClick={toggleSidebar}>
               {!isShowFull ? (
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">

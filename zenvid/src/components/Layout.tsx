@@ -47,11 +47,11 @@ export default function Layout({children}: layoutProps) {
     <html lang="en">
       <LivepeerConfig client={client} theme={livepeerTheme} >
         <ApolloProvider client={apolloClient}>
-    <body  className={` ${inter.className} `}>
+    <body  className={` ${inter.className} w-full `}>
     <Header isShowFull={isShowFull} toggleSidebar={toggleShowModal} />
     <div className='flex gap-1 '>
        <Sidebar isShowFull={isShowFull} toggleSidebar={toggleShowModal} />
-       <div className='w-full min-h-screen  md:max-w-[96%] sm:px-2 md:pl-5 lg:px-0.5 '>
+       <div className='w-full min-h-screen   md:max-w-[96%] sm:px-2 md:pl-5 lg:px-0.5 '>
       {children}
       <BottomNav  />
       </div>

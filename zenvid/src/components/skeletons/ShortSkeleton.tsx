@@ -2,8 +2,8 @@ import React from "react";
 import { fakeArray_2 } from "@/assets/constant";
 export default function ShortsSkeleton() {
   return (
-    <div className="w-full">
-      <div className="flex gap-6 items-center justify-center    ">
+    <div className="w-full pl-3 ">
+      <div className=" hidden md:flex gap-6 items-center justify-center pt-2  overflow-x-hidden   ">
         {fakeArray_2.map((item, i) => {
           return (
             <div
