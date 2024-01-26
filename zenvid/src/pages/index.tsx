@@ -9,7 +9,7 @@ export default function Home() {
     <>
     <NextSeo
    title='Zenvid'
-  description='the decentralized video sharing app'
+  description='Zenvid is the  Decentralized video sharing platform Built on crossbell network, in zenvid  you own your social graph, your contents '
 />
     <main
      className='min-h-screen w-full'
