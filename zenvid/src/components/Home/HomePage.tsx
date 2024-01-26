@@ -19,7 +19,7 @@ export default function HomePage() {
   const [testTruth, settestTruth] = useState(false)
     console.log("the video info", data)
 
-     if(testTruth){
+     if(loading){
       return(
         <div className='flex flex-col gap-3 w-full '>
           <ShortsSkeleton  />
