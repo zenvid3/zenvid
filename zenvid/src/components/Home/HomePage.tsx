@@ -43,7 +43,7 @@ export default function HomePage() {
 
     <div className='2xl:grid-cols-6 grid-col-1 xl:grid-cols-4 sm:grid-cols-3 grid gap-x-4 gap-y-2 sm:gap-y-6 px-1 md:px-2'>
      
-    {data.notes?.length > 1 && data?.notes?.filter(video => video.metadata?.content?.tags[0] !== "comment").map((note, i) => (
+    {data?.notes?.length > 1 && data?.notes?.filter(video => video.metadata?.content?.tags[0] !== "comment").map((note, i) => (
       <VideoCard 
       key={i} 
       video={note} 
