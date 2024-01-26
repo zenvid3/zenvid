@@ -16,7 +16,7 @@ import NoData from '../common/NoData'
 import Link from 'next/link'
 export default function HomePage() {
   const {data, loading, error} = useDiscoverVideos()
-  const [testTruth, settestTruth] = useState(true)
+  const [testTruth, settestTruth] = useState(false)
     console.log("the video info", data)
 
      if(testTruth){
